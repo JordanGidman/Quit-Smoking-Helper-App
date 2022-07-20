@@ -1,0 +1,63 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  padding: 0 6.4rem 0 6.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  height: 95vh;
+
+  background-color: #ffffff;
+}
+
+.page-title {
+  font-size: 6.2rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 3.2rem;
+
+  text-transform: uppercase;
+}
+
+.content-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #69db7c;
+
+  padding: 3.2rem;
+
+  border-radius: 1.2rem;
+}
+
+/* //////////////////////////////////////// */
+/* General Styles */
+
+.secondary-heading {
+  font-size: 3.2rem;
+  margin-bottom: 1.6rem;
+}
+
+.secondary-text {
+  font-size: 1.4rem;
+  margin-bottom: 1.6rem;
+}
+
+.input-days-without {
+  margin-bottom: 1.6rem;
+  border-radius: 1.2rem;
+  border: none;
+  padding: 0.8rem;
+}

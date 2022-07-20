@@ -1,0 +1,39 @@
+an app where when you get a craving for a cigarette you can click i have a craving or set timers / reminders 
+where when prompted a number of craving killing activities or things you can do will be presented based on the severity
+
+the user needs to be able to log in -> display welcome message
+once logged in there will be a buttton which will say i have a craving -> when cliked user will be asked to input the amount of days without smoking 
+
+based on this input value the user will be given a few ideas to elivate this craving 
+
+the app should also advise the user of certain things they should try to avoid for the time being.
+
+the app needs to have a way to schedule reminders and have them be persistent so if the user closes the page / app it will still know when to remind the user. 
+
+the app needs to give motivational and congratualtory statements for certain events and milestones.
+
+---------------------
+
+//HOPEFULLY
+
+the app should potentially track the number of days that the user has been without a cigarette to help them keep track of progress
+
+there should be a way to reset this in case of a relapse
+
+there should potentially be some kind of reward to incentivise users to keep pushing on // although this would likely cost a ton of money and im not sure how i could tackle this without
+any spending
+
+
+----------------------------------------
+MINI VERSION
+
+one option is to have the app simply have a button that you can press that will give you things to do and things to avoid to manage the craving
+
+
+The user should input their number of days without smoking 
+then the inputted number needs to be taken and stored
+the container needs to be emptied
+then html needs to be adjacently pushed with 4 total html bars with 2 things to help and 2 things to avoid as well as a dynamic message based on the number of days
+There also needs to be a get more options button pushed that when clicked will refresh the options given and give some new ones
+there also needs to be a way for the user to specify if they feel they need more hardcore solutions or some simple fixes that will then present them some new options from the relevant tier
+
