@@ -2,7 +2,7 @@
 
 const inputDaysWithout = document.querySelector(`.input-days-without`);
 const btnGo = document.querySelector(`.btn-go`);
-const container = document.querySelector(`content-container`);
+const container = document.querySelector(`.content-container`);
 
 //These are tiers based on severity of the symptoms with tier 3 being more involved solutions for the beginners and tier1 being quick fixes for the people who just need a hand not to relapse
 const tier1Solutions = [
@@ -45,5 +45,60 @@ const tier3Solutions = [
 ];
 
 const tier3String = `As you are just starting your quitting journey the suggestions you see here will be more intense and involved if you want some quick fixes simply click the reduce difficulty button`;
-const tier2String = `These solutions are meant for people who have been without for a little while and you just need a little help you when the cravings do still strike`;
+const tier2String = `These solutions are for people who have been without for a little while and just need a little help when a craving occurs`;
 const tier1String = `Here are some quick fixes that you can quickly use to help stop a craving in its tracks, keep up the good work`;
+
+let tick = 0;
+
+btnGo.addEventListener(`click`, function (e) {
+  e.preventDefault();
+
+  let numDays = Number(inputDaysWithout.value);
+  console.log(numDays);
+
+  let getTier =
+    numDays < 20 ? 3 : numDays < 60 && numDays > 20 ? 2 : numDays > 60 ? 1 : 1;
+
+  let currTierString =
+    getTier === 1
+      ? tier1String
+      : getTier === 2
+      ? tier2String
+      : getTier === 3
+      ? tier3String
+      : tier1String;
+
+  container.innerHTML = `<h2 class="suggestion-title">${currTierString}</h2>`;
+  runApp(numDays, getTier);
+  runApp(numDays, getTier);
+  runApp(numDays, getTier);
+});
+
+const runApp = function (num, tier) {
+  console.log(num, tier);
+
+  let randomNum = Math.trunc(Math.random() * 10);
+
+  const currSuggestion =
+    tier === 1
+      ? tier1Solutions[randomNum]
+      : tier === 2
+      ? tier2Solutions[randomNum]
+      : tier === 3
+      ? tier3Solutions[randomNum]
+      : tier1Solutions[randomNum];
+  tick++;
+
+  const html = `
+  
+  
+  <div class="suggestion">
+  
+  <p class="suggestion-num">${tick}.</p>
+  <p class="suggestion-text">
+    ${currSuggestion}
+  </p>
+</div>`;
+
+  container.insertAdjacentHTML(`beforeend`, html);
+};

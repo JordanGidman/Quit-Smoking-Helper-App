@@ -18,7 +18,7 @@ body {
 
   height: 95vh;
 
-  background-color: #ffffff;
+  background-color: #f9fdfa;
 }
 
 .page-title {
@@ -28,6 +28,8 @@ body {
   margin-bottom: 3.2rem;
 
   text-transform: uppercase;
+  border: 2px solid #69db7c;
+  padding: 2.4rem;
 }
 
 .content-container {
@@ -40,6 +42,53 @@ body {
   padding: 3.2rem;
 
   border-radius: 1.2rem;
+}
+
+.input-days-without {
+  margin-bottom: 1.6rem;
+  border-radius: 1.2rem;
+  border: none;
+  padding: 0.8rem;
+}
+
+.btn-go {
+  font-size: 1.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+
+  background-color: #ffffff;
+  border: 1px solid #69db7c;
+  padding: 1.2rem;
+  border-radius: 1.2rem;
+  cursor: pointer;
+}
+
+/* Suggestions */
+
+.suggestion {
+  display: flex;
+
+  align-items: center;
+  gap: 1.2rem;
+  background-color: #fff;
+  padding: 1.2rem;
+  margin-bottom: 1.2rem;
+  width: 100%;
+}
+
+.suggestion-title {
+  text-transform: uppercase;
+  margin-bottom: 2.4rem;
+}
+
+.suggestion-num {
+  color: #4a9957;
+  font-size: 2.2rem;
+}
+
+.suggestion-text {
+  font-size: 1.8rem;
+  font-weight: 500;
 }
 
 /* //////////////////////////////////////// */
@@ -55,9 +104,6 @@ body {
   margin-bottom: 1.6rem;
 }
 
-.input-days-without {
-  margin-bottom: 1.6rem;
-  border-radius: 1.2rem;
-  border: none;
-  padding: 0.8rem;
+.hidden {
+  opacity: 0;
 }
