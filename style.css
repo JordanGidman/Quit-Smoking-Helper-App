@@ -43,6 +43,13 @@ body {
 
   border-radius: 1.2rem;
 }
+.content-container-inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
 
 .input-days-without {
   margin-bottom: 1.6rem;
@@ -51,7 +58,8 @@ body {
   padding: 0.8rem;
 }
 
-.btn-go {
+.btn-go,
+.btn-difficulty {
   font-size: 1.8rem;
   font-weight: 600;
   text-transform: uppercase;
@@ -63,11 +71,20 @@ body {
   cursor: pointer;
 }
 
+.btns-difficulty {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1.2rem;
+  padding-top: 1.4rem;
+}
+
 /* Suggestions */
 
 .suggestion {
   display: flex;
-
+  justify-content: space-between;
   align-items: center;
   gap: 1.2rem;
   background-color: #fff;

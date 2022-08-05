@@ -3,6 +3,11 @@
 const inputDaysWithout = document.querySelector(`.input-days-without`);
 const btnGo = document.querySelector(`.btn-go`);
 const container = document.querySelector(`.content-container`);
+const containerInner = document.querySelector(`.content-container-inner`);
+const btnRefresh = document.querySelectorAll(`.btn-refresh`);
+const sugg = document.querySelector(`.suggestion`);
+
+let isActive = false;
 
 //These are tiers based on severity of the symptoms with tier 3 being more involved solutions for the beginners and tier1 being quick fixes for the people who just need a hand not to relapse
 const tier1Solutions = [
@@ -49,13 +54,15 @@ const tier2String = `These solutions are for people who have been without for a 
 const tier1String = `Here are some quick fixes that you can quickly use to help stop a craving in its tracks, keep up the good work`;
 
 let tick = 0;
+let currTier;
+let currSuggestion;
 
 btnGo.addEventListener(`click`, function (e) {
   e.preventDefault();
 
-  let numDays = Number(inputDaysWithout.value);
-  console.log(numDays);
+  containerInner.innerHTML = ``;
 
+  let numDays = Number(inputDaysWithout.value);
   let getTier =
     numDays < 20 ? 3 : numDays < 60 && numDays > 20 ? 2 : numDays > 60 ? 1 : 1;
 
@@ -68,25 +75,51 @@ btnGo.addEventListener(`click`, function (e) {
       ? tier3String
       : tier1String;
 
-  container.innerHTML = `<h2 class="suggestion-title">${currTierString}</h2>`;
-  runApp(numDays, getTier);
-  runApp(numDays, getTier);
-  runApp(numDays, getTier);
+  container.insertAdjacentHTML(
+    `afterbegin`,
+    `<h2 class="suggestion-title">${currTierString}</h2>`
+  );
+
+  container.insertAdjacentHTML(
+    `beforeend`,
+    `
+    <div class="btns-difficulty">
+    <button class="btn-difficulty difficulty-down">Solution Strength -1</button>
+    <button class="btn-difficulty difficulty-up">Solution Strength +1</button>
+   
+    </div>
+    `
+  );
+
+  //loop this if i wanted more than 3 suggestions
+
+  const generateSuggs = function () {
+    for (let i = 0; i < 3; i++) {
+      runApp(getTier);
+    }
+  };
+  // runApp(numDays, getTier);
+  // runApp(numDays, getTier);
+  // runApp(numDays, getTier);
+
+  generateSuggs();
+  currTier = getTier;
 });
 
-const runApp = function (num, tier) {
-  console.log(num, tier);
-
+const getSuggestion = function (tier) {
   let randomNum = Math.trunc(Math.random() * 10);
 
-  const currSuggestion =
-    tier === 1
-      ? tier1Solutions[randomNum]
-      : tier === 2
-      ? tier2Solutions[randomNum]
-      : tier === 3
-      ? tier3Solutions[randomNum]
-      : tier1Solutions[randomNum];
+  return tier === 1
+    ? tier1Solutions[randomNum]
+    : tier === 2
+    ? tier2Solutions[randomNum]
+    : tier === 3
+    ? tier3Solutions[randomNum]
+    : tier1Solutions[randomNum];
+};
+
+const runApp = function (tier) {
+  let currSugg = getSuggestion(tier);
   tick++;
 
   const html = `
@@ -96,9 +129,32 @@ const runApp = function (num, tier) {
   
   <p class="suggestion-num">${tick}.</p>
   <p class="suggestion-text">
-    ${currSuggestion}
+    ${currSugg}
   </p>
+  <button class="btn-refresh">New Suggestion</button>
 </div>`;
 
-  container.insertAdjacentHTML(`beforeend`, html);
+  containerInner.insertAdjacentHTML(`afterbegin`, html);
+  currSuggestion = currSugg;
 };
+
+containerInner.addEventListener(`click`, function (e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains(`btn-refresh`)) {
+    tick = Number(
+      e.target.parentNode.querySelector(`.suggestion-num`).textContent
+    );
+
+    // e.target.parentNode.remove();
+    // runApp(currTier);
+    // console.log(e);
+    const htmlInner = ` <p class="suggestion-num">${tick}.</p>
+    <p class="suggestion-text">
+      ${getSuggestion(currTier)}
+    </p>
+    <button class="btn-refresh">New Suggestion</button>`;
+
+    e.target.parentNode.innerHTML = htmlInner;
+  }
+});

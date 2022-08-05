@@ -37,3 +37,7 @@ then html needs to be adjacently pushed with 4 total html bars with 2 things to 
 There also needs to be a get more options button pushed that when clicked will refresh the options given and give some new ones
 there also needs to be a way for the user to specify if they feel they need more hardcore solutions or some simple fixes that will then present them some new options from the relevant tier
 
+
+//NEED TO ENSURE THE DATA THE USER IS TYPINH IS === A NUMBER
+//MUST CHECK THE SUGGESTION IS NOT THE SAME
+//
