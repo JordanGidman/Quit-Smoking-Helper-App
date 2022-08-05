@@ -6,6 +6,8 @@ const container = document.querySelector(`.content-container`);
 const containerInner = document.querySelector(`.content-container-inner`);
 const btnRefresh = document.querySelectorAll(`.btn-refresh`);
 const sugg = document.querySelector(`.suggestion`);
+const btnDiffUp = document.querySelector(`.difficulty-up`);
+const btnDiffDown = document.querySelector(`.difficulty-down`);
 
 let isActive = false;
 
@@ -58,53 +60,64 @@ let currTier;
 let currSuggestion;
 
 btnGo.addEventListener(`click`, function (e) {
-  e.preventDefault();
+  if (isNaN(Number(inputDaysWithout.value))) {
+    alert(`Please Enter A Number`);
+  } else {
+    e.preventDefault();
 
-  containerInner.innerHTML = ``;
+    containerInner.innerHTML = ``;
 
-  let numDays = Number(inputDaysWithout.value);
-  let getTier =
-    numDays < 20 ? 3 : numDays < 60 && numDays > 20 ? 2 : numDays > 60 ? 1 : 1;
+    let numDays = Number(inputDaysWithout.value);
+    let getTier =
+      numDays < 20
+        ? 3
+        : numDays < 60 && numDays > 20
+        ? 2
+        : numDays > 60
+        ? 1
+        : 1;
 
-  let currTierString =
-    getTier === 1
-      ? tier1String
-      : getTier === 2
-      ? tier2String
-      : getTier === 3
-      ? tier3String
-      : tier1String;
+    let currTierString =
+      getTier === 1
+        ? tier1String
+        : getTier === 2
+        ? tier2String
+        : getTier === 3
+        ? tier3String
+        : tier1String;
 
-  container.insertAdjacentHTML(
-    `afterbegin`,
-    `<h2 class="suggestion-title">${currTierString}</h2>`
-  );
+    container.insertAdjacentHTML(
+      `afterbegin`,
+      `<h2 class="suggestion-title">${currTierString}</h2>`
+    );
 
-  container.insertAdjacentHTML(
-    `beforeend`,
-    `
+    container.insertAdjacentHTML(
+      `beforeend`,
+      `
     <div class="btns-difficulty">
     <button class="btn-difficulty difficulty-down">Solution Strength -1</button>
     <button class="btn-difficulty difficulty-up">Solution Strength +1</button>
    
     </div>
     `
-  );
+    );
 
-  //loop this if i wanted more than 3 suggestions
+    //loop this if i wanted more than 3 suggestions
 
-  const generateSuggs = function () {
-    for (let i = 0; i < 3; i++) {
-      runApp(getTier);
-    }
-  };
-  // runApp(numDays, getTier);
-  // runApp(numDays, getTier);
-  // runApp(numDays, getTier);
+    // runApp(numDays, getTier);
+    // runApp(numDays, getTier);
+    // runApp(numDays, getTier);
 
-  generateSuggs();
-  currTier = getTier;
+    currTier = getTier;
+    generateSuggs();
+  }
 });
+
+const generateSuggs = function () {
+  for (let i = 0; i < 3; i++) {
+    runApp(currTier);
+  }
+};
 
 const getSuggestion = function (tier) {
   let randomNum = Math.trunc(Math.random() * 10);
@@ -138,6 +151,29 @@ const runApp = function (tier) {
   currSuggestion = currSugg;
 };
 
+// btnDiffUp.addEventListener(`click`, function (e) {
+//   e.preventDefault();
+// });
+
+container.addEventListener(`click`, function (e) {
+  e.preventDefault();
+
+  if (e.target.classList.contains(`difficulty-up`) && currTier > 1) {
+    tick = 0;
+    containerInner.innerHTML = ``;
+
+    currTier--;
+    generateSuggs();
+  }
+  if (e.target.classList.contains(`difficulty-down`) && currTier < 3) {
+    tick = 0;
+    containerInner.innerHTML = ``;
+
+    currTier++;
+    generateSuggs();
+  }
+});
+
 containerInner.addEventListener(`click`, function (e) {
   e.preventDefault();
 
@@ -158,3 +194,7 @@ containerInner.addEventListener(`click`, function (e) {
     e.target.parentNode.innerHTML = htmlInner;
   }
 });
+
+const nums = [1, 2, 4, `4`, `6`];
+
+console.log(nums.filter((num) => typeof num !== `number`));
