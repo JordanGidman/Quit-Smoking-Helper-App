@@ -194,7 +194,3 @@ containerInner.addEventListener(`click`, function (e) {
     e.target.parentNode.innerHTML = htmlInner;
   }
 });
-
-const nums = [1, 2, 4, `4`, `6`];
-
-console.log(nums.filter((num) => typeof num !== `number`));
