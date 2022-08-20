@@ -11,8 +11,8 @@ const btnDiffDown = document.querySelector(`.difficulty-down`);
 
 let isActive = false;
 
-//These are tiers based on severity of the symptoms with tier 3 being more involved solutions for the beginners and tier1 being quick fixes for the people who just need a hand not to relapse
-const tier1Solutions = [
+//These are tiers based on severity of the symptoms with tier 3 being more involved solutions for the beginners and tier3 being quick fixes for the people who just need a hand not to relapse
+const tier3Solutions = [
   `Go for a walk`,
   `try supplementing cigarettes with bottled water`,
   `Get something to figit with in your hands`,
@@ -38,7 +38,7 @@ const tier2Solutions = [
   `have a portable hobby that you can pck up and put down any time`,
 ];
 
-const tier3Solutions = [
+const tier1Solutions = [
   `Get a vape pen`,
   `Nicotine replacement therapy`,
   `Nicotine Patches Or Nicotine Gum`,
@@ -51,9 +51,9 @@ const tier3Solutions = [
   `Try to stay clear of alcohol and coffee or any drinks that you link with smoking`,
 ];
 
-const tier3String = `As you are just starting your quitting journey the suggestions you see here will be more intense and involved if you want some quick fixes simply click the reduce difficulty button`;
+const tier1String = `As you are just starting your quitting journey the suggestions you see here will be more intense and involved if you want some quick fixes simply click the reduce difficulty button`;
 const tier2String = `These solutions are for people who have been without for a little while and just need a little help when a craving occurs`;
-const tier1String = `Here are some quick fixes that you can quickly use to help stop a craving in its tracks, keep up the good work`;
+const tier3String = `Here are some quick fixes that you can quickly use to help stop a craving in its tracks, keep up the good work`;
 
 let tick = 0;
 let currTier;
@@ -79,12 +79,14 @@ btnGo.addEventListener(`click`, function (e) {
 
     let currTierString =
       getTier === 1
-        ? tier1String
+        ? tier3String
         : getTier === 2
         ? tier2String
         : getTier === 3
-        ? tier3String
-        : tier1String;
+        ? tier1String
+        : tier3String;
+
+    currTier = getTier;
 
     container.insertAdjacentHTML(
       `afterbegin`,
@@ -95,8 +97,9 @@ btnGo.addEventListener(`click`, function (e) {
       `beforeend`,
       `
     <div class="btns-difficulty">
-    <button class="btn-difficulty difficulty-down">Solution Strength -1</button>
-    <button class="btn-difficulty difficulty-up">Solution Strength +1</button>
+    <button class="btn-difficulty difficulty-down">Solution Strength +1</button>
+    <p class="solution-strength-text">Solution Strength: ${currTier}</p>
+    <button class="btn-difficulty difficulty-up">Solution Strength -1</button>
    
     </div>
     `
@@ -108,7 +111,6 @@ btnGo.addEventListener(`click`, function (e) {
     // runApp(numDays, getTier);
     // runApp(numDays, getTier);
 
-    currTier = getTier;
     generateSuggs();
   }
 });
@@ -123,12 +125,12 @@ const getSuggestion = function (tier) {
   let randomNum = Math.trunc(Math.random() * 10);
 
   return tier === 1
-    ? tier1Solutions[randomNum]
+    ? tier3Solutions[randomNum]
     : tier === 2
     ? tier2Solutions[randomNum]
     : tier === 3
-    ? tier3Solutions[randomNum]
-    : tier1Solutions[randomNum];
+    ? tier1Solutions[randomNum]
+    : tier3Solutions[randomNum];
 };
 
 const runApp = function (tier) {
@@ -139,11 +141,12 @@ const runApp = function (tier) {
   
   
   <div class="suggestion">
-  
+  <div class="sugg-container">
   <p class="suggestion-num">${tick}.</p>
   <p class="suggestion-text">
     ${currSugg}
   </p>
+  </div>
   <button class="btn-refresh">New Suggestion</button>
 </div>`;
 
@@ -164,6 +167,9 @@ container.addEventListener(`click`, function (e) {
 
     currTier--;
     generateSuggs();
+    document.querySelector(
+      `.solution-strength-text`
+    ).textContent = `Solution Strength: ${currTier}`;
   }
   if (e.target.classList.contains(`difficulty-down`) && currTier < 3) {
     tick = 0;
@@ -171,6 +177,9 @@ container.addEventListener(`click`, function (e) {
 
     currTier++;
     generateSuggs();
+    document.querySelector(
+      `.solution-strength-text`
+    ).textContent = `Solution Strength: ${currTier}`;
   }
 });
 
@@ -185,12 +194,18 @@ containerInner.addEventListener(`click`, function (e) {
     // e.target.parentNode.remove();
     // runApp(currTier);
     // console.log(e);
-    const htmlInner = ` <p class="suggestion-num">${tick}.</p>
+    const htmlInner = ` 
+    <div class="sugg-container">
+    <p class="suggestion-num">${tick}.</p>
     <p class="suggestion-text">
       ${getSuggestion(currTier)}
     </p>
+    </div>
     <button class="btn-refresh">New Suggestion</button>`;
 
     e.target.parentNode.innerHTML = htmlInner;
+    document.querySelector(
+      `.solution-strength-text`
+    ).textContent = `Solution Strength: ${currTier}`;
   }
 });
